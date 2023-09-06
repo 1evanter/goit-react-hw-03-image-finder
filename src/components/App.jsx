@@ -3,6 +3,7 @@ import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Button } from "./Button/Button";
 import { fetchImages } from "../api.js";
+import { GlobalStyles } from "GlobalStyles";
 
 export class App extends Component {
   state = {
@@ -25,7 +26,7 @@ export class App extends Component {
     if (query !== prevState.query || page !== prevState.page) {
       const per_page = 12;
       const searchQuery = query.slice(query.indexOf('/') + 1);
-      
+
       const images = await fetchImages(searchQuery, page, per_page);
        const { hits, total } = images;
         const totalPages = Math.ceil(total / per_page);
@@ -48,7 +49,8 @@ export class App extends Component {
     return <div>
       <Searchbar onSubmit={this.handleChangeQuery} />
       <ImageGallery images={this.state.images} />
-      <Button onLoadMore={this.handleLoadMore } />
+      <Button onLoadMore={this.handleLoadMore} />
+      <GlobalStyles/>
     </div>
   }
 }
