@@ -1,8 +1,10 @@
-export const Button = ({onLoadMore}) => {
+import { LoadMore } from "./Button.styled"
+
+export const Button = ({ onLoadMore }) => {
     return (
-        <button onClick={onLoadMore} type="button">
+        <LoadMore onClick={onLoadMore} type="button">
         Load more
-        </button>
+        </LoadMore>
     )
    
 }
