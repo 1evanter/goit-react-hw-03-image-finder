@@ -1,4 +1,7 @@
 import { Component } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
 import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Button } from "./Button/Button";
@@ -16,6 +19,8 @@ export class App extends Component {
     this.setState({
       query: `${Date.now()}/${newQuery}`,
       images: [],
+      page: 1,
+      totalPages: 1,
   })
   }
   
@@ -32,6 +37,8 @@ export class App extends Component {
         const totalPages = Math.ceil(total / per_page);
       //  this.setState({images})
      
+
+      
       this.setState(prevState => ({
         images: page > 1 ? [...prevState.images, ...hits] : hits,
         totalPages,
@@ -46,11 +53,13 @@ export class App extends Component {
   }
 
   render() {
+    const { images, totalPages, page } = this.state;
+
     return <div>
       <Searchbar onSubmit={this.handleChangeQuery} />
-      <ImageGallery images={this.state.images} />
-      <Button onLoadMore={this.handleLoadMore} />
-      <GlobalStyles/>
+      {images.length > 0 && <ImageGallery images={images} />}
+      
+     {page < totalPages && <Button onLoadMore={this.handleLoadMore} />} <GlobalStyles/>
     </div>
   }
 }
