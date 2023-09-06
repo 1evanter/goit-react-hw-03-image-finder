@@ -1,16 +1,19 @@
-export const Searchbar = () => {
+export const Searchbar = ({onSubmit}) => {
     return (
         <header>
-            <form>
+            <form onSubmit={event => {
+          event.preventDefault();
+          onSubmit(event.target.elements.query.value);
+          event.target.reset();
+        }}>
                 <button type="submit">
                     Search
                 </button>
   <input
-      class="input"
-      type="text"
-      autocomplete="off"
-      autofocus
-      placeholder="Search images and photos"
+       type="text"
+          name="query"
+          placeholder="Search images and photos"
+          required
     />
             </form>
      </header>
