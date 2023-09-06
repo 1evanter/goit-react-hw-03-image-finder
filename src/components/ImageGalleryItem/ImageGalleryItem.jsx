@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Item, Image } from "./ImageGalleryItem.styled"
+import { Image } from "./ImageGalleryItem.styled"
 import { ModalWindow } from "components/Modal/Modal"
 
 export class ImageGalleryItem extends Component {
@@ -16,13 +16,14 @@ export class ImageGalleryItem extends Component {
     }
 
     render() {
-        const { images } = this.props
+        const { image: { largeImageURL, webformatURL, tags }
+        } = this.props;
+
         return (
-             images.map(({id, webformatURL, tags, largeImageURL}) => (
-                <Item key={id}>
-                    <Image onClick={this.openModal} src={webformatURL} alt={tags} />
+            <>
+                 <Image onClick={this.openModal} src={webformatURL} alt={tags} />
                      <ModalWindow isOpen={this.state.isModalOpen} closeModal={this.closeModal} src={largeImageURL} alt={tags} />
-                </Item>))       
+            </>      
     )
     }
 }
