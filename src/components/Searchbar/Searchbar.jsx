@@ -1,10 +1,10 @@
 export const Searchbar = ({onSubmit}) => {
     return (
         <header>
-            <form onSubmit={event => {
-          event.preventDefault();
-          onSubmit(event.target.elements.query.value);
-          event.target.reset();
+            <form onSubmit={evt => {
+          evt.preventDefault();
+          onSubmit(evt.target.elements.query.value);
+          evt.target.reset();
         }}>
                 <button type="submit">
                     Search
