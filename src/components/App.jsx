@@ -8,6 +8,7 @@ import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Button } from "./Button/Button";
 import { fetchImages } from "../api.js";
 import { Loader } from "./Loader/Loader";
+import { Wrapper } from "./App.styled";
 
 export class App extends Component {
   state = {
@@ -29,26 +30,23 @@ export class App extends Component {
   async componentDidUpdate(prevProps, prevState) {
    
     const { query, page } = this.state;
-    const per_page = 12;
+   
 
     if (query !== prevState.query || page !== prevState.page) {
       try {
         this.setState({loading: true})
         const searchQuery = query.slice(query.indexOf('/') + 1);
   
-        const images = await fetchImages(searchQuery, page, per_page);
+        const images = await fetchImages(searchQuery, page);
          const { hits, total } = images;
-          const totalPages = Math.ceil(total / per_page);
-        //  this.setState({images})
        
-        if (hits.length > 0) {
+        if (!hits.length) {
+          toast.error('Sorry, no pictures were found for your search') }
+         
           this.setState(prevState => ({
             images: page > 1 ? [...prevState.images, ...hits] : hits,
-            totalPages,
+            totalPages: Math.ceil(total / 12),
           }))
-        } else {
-          toast.error('Sorry, no pictures were found for your search')
-  }
       } catch(error) {
          console.log(error)
       } finally {
@@ -67,7 +65,7 @@ export class App extends Component {
   render() {
     const { images, totalPages, page, loading } = this.state;
 
-    return <div>
+    return <Wrapper>
       <Searchbar onSubmit={this.handleChangeQuery} />
       {images.length > 0 && <ImageGallery images={images} />}
       {page < totalPages && <Button onLoadMore={this.handleLoadMore} />}
@@ -75,7 +73,7 @@ export class App extends Component {
 
       <GlobalStyles />
       <ToastContainer/>
-    </div>
+    </Wrapper>
   }
 }
 
