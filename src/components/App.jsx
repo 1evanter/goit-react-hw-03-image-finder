@@ -37,12 +37,15 @@ export class App extends Component {
         const totalPages = Math.ceil(total / per_page);
       //  this.setState({images})
      
-
+      if (hits.length > 0) {
+        this.setState(prevState => ({
+          images: page > 1 ? [...prevState.images, ...hits] : hits,
+          totalPages,
+        }))
+      } else {
+        toast.error('Sorry, no pictures were found for your search')
+}
       
-      this.setState(prevState => ({
-        images: page > 1 ? [...prevState.images, ...hits] : hits,
-        totalPages,
-      }))
     }
   } 
   
@@ -58,8 +61,9 @@ export class App extends Component {
     return <div>
       <Searchbar onSubmit={this.handleChangeQuery} />
       {images.length > 0 && <ImageGallery images={images} />}
-      
-     {page < totalPages && <Button onLoadMore={this.handleLoadMore} />} <GlobalStyles/>
+      {page < totalPages && <Button onLoadMore={this.handleLoadMore} />}
+      <GlobalStyles />
+      <ToastContainer/>
     </div>
   }
 }
