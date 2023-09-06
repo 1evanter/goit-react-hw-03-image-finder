@@ -1,4 +1,5 @@
-import { Header, SearchButton, Form, Input, ButtonLabel } from "./Searchbar.styled";
+import { Header, SearchButton, Form, Input } from "./Searchbar.styled";
+import {FcSearch} from 'react-icons/fc'
 
 export const Searchbar = ({ onSubmit }) => {
     return (
@@ -9,7 +10,7 @@ export const Searchbar = ({ onSubmit }) => {
           evt.target.reset();
         }}>
                 <SearchButton type="submit">
-                    <ButtonLabel>Search</ButtonLabel>
+                    <FcSearch/>
                 </SearchButton>
   <Input
        type="text"
