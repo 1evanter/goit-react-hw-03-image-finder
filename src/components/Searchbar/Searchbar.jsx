@@ -1,6 +1,8 @@
-export const Searchbar = ({onSubmit}) => {
+import { Header } from "./Searchbar.styled";
+
+export const Searchbar = ({ onSubmit }) => {
     return (
-        <header>
+        <Header>
             <form onSubmit={evt => {
           evt.preventDefault();
           onSubmit(evt.target.elements.query.value);
@@ -16,6 +18,6 @@ export const Searchbar = ({onSubmit}) => {
           required
     />
             </form>
-     </header>
+     </Header>
 )
 }
