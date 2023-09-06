@@ -18,11 +18,16 @@ export class App extends Component {
   })
   }
   
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
+   
     const { query, page } = this.state;
 
-    if (this.state.query !== prevState.query || this.state.page !== prevState.page) {
-    fetchImages(query, page)
+   if (query !== prevState.query || page !== prevState.page) {
+     
+      const searchQuery = query.slice(query.indexOf('/') + 1);
+        const images = await fetchImages(searchQuery, page);
+        console.log(images)
+       this.setState({images})
   }
   } 
   
