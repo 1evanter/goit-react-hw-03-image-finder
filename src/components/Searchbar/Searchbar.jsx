@@ -1,23 +1,23 @@
-import { Header } from "./Searchbar.styled";
+import { Header, SearchButton, Form, Input, ButtonLabel } from "./Searchbar.styled";
 
 export const Searchbar = ({ onSubmit }) => {
     return (
         <Header>
-            <form onSubmit={evt => {
+            <Form onSubmit={evt => {
           evt.preventDefault();
           onSubmit(evt.target.elements.query.value);
           evt.target.reset();
         }}>
-                <button type="submit">
-                    Search
-                </button>
-  <input
+                <SearchButton type="submit">
+                    <ButtonLabel>Search</ButtonLabel>
+                </SearchButton>
+  <Input
        type="text"
           name="query"
           placeholder="Search images and photos"
           required
     />
-            </form>
+            </Form>
      </Header>
 )
 }
